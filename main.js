@@ -11,6 +11,7 @@ import circleCenterRenderer from './renderCircleCenter.js'
 import verticalBarsRenderer from './verticalBarRenderer.js'
 import verticalBarsMonoRenderer from './verticalBarsMonoRenderer.js'
 import radialRayRenderer from './radialRayRenderer.js'
+import circleFieldRenderer from './circleFieldRenderer.js'
 
 
 // --------------------------------------------------------
@@ -28,11 +29,11 @@ const playButton = document.getElementById('button-play')
 const pauseButton = document.getElementById('button-pause')
 
 playButton.addEventListener('click', (e) => {
-	startAudio()
+  startAudio()
 })
 
 pauseButton.addEventListener('click', (e) => {
-	audio.pause()
+  audio.pause()
 })
 
 
@@ -46,50 +47,52 @@ let audio
 
 // Starts playing the audio
 function startAudio() {
-	// make a new Audio Object
-	audio = new Audio()
-	// Get a context 
-	const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-	
-	// Define a source sound file 
-	// You can replace this with your own file
-	audio.src = 'bird-whistling-a.wav'
-	// audio.src = 'log-sine-sweep.wav'
+  // make a new Audio Object
+  audio = new Audio()
+  // Get a context 
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
-	// Make a new analyser
-	analyser = audioContext.createAnalyser()
-	// Connect the analyser and the audio
-	const source = audioContext.createMediaElementSource(audio)
-	source.connect(analyser)
-	analyser.connect(audioContext.destination)
+  // Define a source sound file 
+  // You can replace this with your own file
+  audio.src = 'bird-whistling-a.wav'
+  // audio.src = 'log-sine-sweep.wav'
 
-	// Get an array of audio data from the analyser
-	frequencyArray = new Uint8Array(analyser.frequencyBinCount)
-	// console.log(frequencyArray.length)
-	
-	// Start playing the audio
-	audio.play()
+  // Make a new analyser
+  analyser = audioContext.createAnalyser()
+  // Connect the analyser and the audio
+  const source = audioContext.createMediaElementSource(audio)
+  source.connect(analyser)
+  analyser.connect(audioContext.destination)
 
-	requestAnimationFrame(render)
+  // Get an array of audio data from the analyser
+  frequencyArray = new Uint8Array(analyser.frequencyBinCount)
+  // console.log(frequencyArray.length)
+
+  // Start playing the audio
+  audio.play()
+
+  requestAnimationFrame(render)
 }
 
 // This function renders the audio to the canvas using a renderer
 function render() {
 
-	const centerX = 300 / 2
-	const centerY = 300 / 2
-	const radius = 300 / 5
-	analyser.getByteFrequencyData(frequencyArray)
-	
-	// Use one of the renderers below 
-	// radialRayRenderer(frequencyArray, ctx, centerX, centerY, radius)
-	// verticalBarsMonoRenderer(frequencyArray, ctx, 12, 300, 300)
-	// verticalBarsRenderer(frequencyArray, ctx, 300, 300)
-	// circleCenterRenderer(frequencyArray, ctx, centerX, centerY)
-	// circleGridRenderer(frequencyArray, ctx, 300, 300)
-	circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
+  const centerX = 300 / 2
+  const centerY = 300 / 2
+  const radius = 300 / 5
+  analyser.getByteFrequencyData(frequencyArray)
 
-	// Set up the next animation frame
-	requestAnimationFrame(render)
+  // Use one of the renderers below 
+  // radialRayRenderer(frequencyArray, ctx, centerX, centerY, radius)
+  // verticalBarsMonoRenderer(frequencyArray, ctx, 12, 300, 300)
+  // verticalBarsRenderer(frequencyArray, ctx, 300, 300)
+  // circleCenterRenderer(frequencyArray, ctx, centerX, centerY)
+  // circleGridRenderer(frequencyArray, ctx, 300, 300)
+  // circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
+
+  circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
+
+  // Set up the next animation frame
+  requestAnimationFrame(render)
 }
 
