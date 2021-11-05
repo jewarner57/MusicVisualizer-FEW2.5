@@ -7,14 +7,14 @@ function render(frequencyArray, ctx, centerX, centerY) {
   ctx.fill()
 
   const bars = frequencyArray.length
-  const colorStep = 360 / bars
   const pi2 = Math.PI * 2
 
-  // Draw circles centered in canvas
+  // Draw circles from array
   frequencyArray.forEach((f, i) => {
+
     ctx.beginPath()
-    ctx.fillStyle = `rgb(100, ${f}, 100)`;
-    ctx.arc(centerX + i / 2, centerY + i / 2, f * 0.5, 0, pi2)
+    ctx.fillStyle = `hsl(${f}, 100%, 50%)`;
+    ctx.arc((i % 300) + 1, Math.round(i / 300) * 50 + 100, f * 0.2 + 1, 0, pi2)
     ctx.fill()
   })
 }

@@ -12,6 +12,7 @@ import verticalBarsRenderer from './verticalBarRenderer.js'
 import verticalBarsMonoRenderer from './verticalBarsMonoRenderer.js'
 import radialRayRenderer from './radialRayRenderer.js'
 import circleFieldRenderer from './circleFieldRenderer.js'
+import vaporwaveSunRenderer from './vaporwaveSunRenderer.js'
 
 
 // --------------------------------------------------------
@@ -21,7 +22,8 @@ import circleFieldRenderer from './circleFieldRenderer.js'
 // renderers below
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
 
 // ----------------------------------------------------------
 // Buttons 
@@ -54,7 +56,8 @@ function startAudio() {
 
   // Define a source sound file 
   // You can replace this with your own file
-  audio.src = 'bird-whistling-a.wav'
+  // audio.src = 'bird-whistling-a.wav'
+  audio.src = 'seven-nation.mp3'
   // audio.src = 'log-sine-sweep.wav'
 
   // Make a new analyser
@@ -75,12 +78,17 @@ function startAudio() {
 }
 
 // This function renders the audio to the canvas using a renderer
+let rotationFactor = 0
+
 function render() {
 
-  const centerX = 300 / 2
-  const centerY = 300 / 2
+  const centerX = window.innerWidth / 2
+  const centerY = window.innerHeight / 2
   const radius = 300 / 5
+  ctx.fillStyle = 'black'
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   analyser.getByteFrequencyData(frequencyArray)
+  rotationFactor += 0.1 / 60
 
   // Use one of the renderers below 
   // radialRayRenderer(frequencyArray, ctx, centerX, centerY, radius)
@@ -89,8 +97,9 @@ function render() {
   // circleCenterRenderer(frequencyArray, ctx, centerX, centerY)
   // circleGridRenderer(frequencyArray, ctx, 300, 300)
   // circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
+  // circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
 
-  circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
+  vaporwaveSunRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor)
 
   // Set up the next animation frame
   requestAnimationFrame(render)
