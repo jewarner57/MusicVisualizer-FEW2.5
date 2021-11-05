@@ -57,8 +57,9 @@ function startAudio() {
   // Define a source sound file 
   // You can replace this with your own file
   // audio.src = 'bird-whistling-a.wav'
-  audio.src = 'seven-nation.mp3'
+  // audio.src = 'seven-nation.mp3'
   // audio.src = 'log-sine-sweep.wav'
+  audio.src = 'nomad-city.mp3'
 
   // Make a new analyser
   analyser = audioContext.createAnalyser()
@@ -77,16 +78,60 @@ function startAudio() {
   requestAnimationFrame(render)
 }
 
-// This function renders the audio to the canvas using a renderer
+let SunGap = class {
+  constructor(x, y, width, startY, maxY, color) {
+    this.height = (this.y - this.maxY) / 20
+    this.width = width
+    this.color = color
+    this.startY = startY
+    this.maxY = maxY
+    this.x = x
+    this.y = y
+  }
+
+  move(amnt) {
+    if (this.y > this.maxY) {
+      this.y -= amnt
+      this.height = (this.y - this.maxY) / 12
+      return
+    }
+    this.y = this.startY
+  }
+  draw() {
+    ctx.fillStyle = backgroundColor
+    ctx.fillRect(this.x, this.y, this.width, this.height)
+  }
+};
+
 let rotationFactor = 0
+const sunGaps = []
 
+const centerX = window.innerWidth / 2
+const centerY = window.innerHeight / 2
+const radius = 100
+const startY = centerY + radius
+const maxY = centerY - 20
+
+const grad2 = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * 2);
+grad2.addColorStop(0, 'rgba(48, 2, 30, 1)');
+grad2.addColorStop(1, 'rgba(0, 0, 0, 1)');
+const backgroundColor = grad2
+
+for (let i = 0; i < 10; i++) {
+  const height = 10 - i
+  const width = radius * 2
+
+  const xPos = centerX - radius
+  const yPos = centerY + 100 - (i * 12)
+
+  sunGaps.push(new SunGap(xPos, yPos, width, startY, maxY, 'red'))
+}
+
+// This function renders the audio to the canvas using a renderer
 function render() {
-
-  const centerX = window.innerWidth / 2
-  const centerY = window.innerHeight / 2
-  const radius = 300 / 5
-  ctx.fillStyle = 'black'
+  ctx.fillStyle = backgroundColor
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
   analyser.getByteFrequencyData(frequencyArray)
   rotationFactor += 0.1 / 60
 
@@ -99,7 +144,10 @@ function render() {
   // circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
   // circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
 
-  vaporwaveSunRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor)
+  vaporwaveSunRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+
+  // ctx.fillStyle = backgroundColor
+  // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   // Set up the next animation frame
   requestAnimationFrame(render)

@@ -21,10 +21,23 @@
     }
 
     button {
-      margin: 5px;
-      padding: 1em;
+      position: absolute;
       border-radius: 0.25em;
-      border: 1px solid;
+      border: none;
+      background-color: teal;
+      color: white;
+    }
+
+    #button-play {
+      top: 20px;
+      left: 10px;
+      padding: 1em 1em 0.7em 1em;
+    }
+
+    #button-pause {
+      padding: 1em 1em 0.7em 1em;
+      top: 80px;
+      left: 10px;
     }
   </style>
 </head>
@@ -33,8 +46,16 @@
 
   <canvas id="canvas" width="300" height="300"></canvas>
 
-  <button id="button-play">Play</button>
-  <button id="button-pause">Stop</button>
+  <button id="button-play">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+      <path d="M3 22v-20l18 10-18 10z" />
+    </svg>
+  </button>
+  <button id="button-pause">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+      <path d="M2 2h20v20h-20z" />
+    </svg>
+  </button>
 
   <script src="main.js" type="module"></script>
 </body>
