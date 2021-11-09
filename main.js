@@ -56,10 +56,11 @@ function startAudio() {
 
   // Define a source sound file 
   // You can replace this with your own file
-  // audio.src = 'bird-whistling-a.wav'
+  audio.src = 'bird-whistling-a.wav'
   // audio.src = 'seven-nation.mp3'
   // audio.src = 'log-sine-sweep.wav'
-  audio.src = 'nomad-city.mp3'
+  // audio.src = 'nomad-city.mp3'
+  // audio.src = 'vis_test.mp3'
 
   // Make a new analyser
   analyser = audioContext.createAnalyser()
@@ -118,7 +119,6 @@ grad2.addColorStop(1, 'rgba(0, 0, 0, 1)');
 const backgroundColor = grad2
 
 for (let i = 0; i < 10; i++) {
-  const height = 10 - i
   const width = radius * 2
 
   const xPos = centerX - radius
