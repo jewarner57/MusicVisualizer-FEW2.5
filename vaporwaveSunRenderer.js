@@ -40,7 +40,7 @@ function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, s
     const f1x2 = (Math.cos(step * i + rotationFactor) * (radius + barLength1)) + centerX
     const f1y2 = (Math.sin(step * i + rotationFactor) * (radius + barLength1)) + centerY
 
-    ctx.strokeStyle = `hsla(${150 / 1024 * i + 190}, 50%, 50%, 100%)`
+    ctx.strokeStyle = `hsla(${150 / 1024 * i + 190}, 50%, 50%, 50%)`
     // ctx.strokeStyle = 'hsl(202, 100%, 63%)'
     ctx.beginPath()
     ctx.lineWidth = f / 15
