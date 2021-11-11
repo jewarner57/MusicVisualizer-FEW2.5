@@ -3,8 +3,13 @@ Real Time data: Audio Visualizer.
 
 ## A vaporwave / synthwave themed audio visualization
 
-![page preivew](./preview.png)
-![page preivew](./preview1.png)
+* * *
+
+### Live Demo
+[Live project link](https://www.jonathanewarner.com/MusicVisualizer-FEW2.5/)
+
+![page preivew](./images/preview.png)
+![page preivew](./images/preview1.png)
 
 ## How to run locally?
   * Use a python server to serve index.html

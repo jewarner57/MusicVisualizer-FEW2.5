@@ -3,7 +3,6 @@
 // https://www.kkhaydarov.com/audio-visualizer/
 // https://medium.com/@duraraxbaccano/computer-art-visualize-your-music-in-javascript-with-your-browser-part-2-fa1a3b73fdc6
 
-
 // Import a renderer 
 import circleRenderer from './renderers/radialRayMonoRenderer.js'
 import circleGridRenderer from './renderers/renderCircleGrid.js'
@@ -12,7 +11,7 @@ import verticalBarsRenderer from './renderers/verticalBarRenderer.js'
 import verticalBarsMonoRenderer from './renderers/verticalBarsMonoRenderer.js'
 import radialRayRenderer from './renderers/radialRayRenderer.js'
 import circleFieldRenderer from './renderers/circleFieldRenderer.js'
-import vaporwaveSunRenderer from './renderers/vaporwaveSunRenderer.js'
+import vaporwaveSunFireworkRenderer from './renderers/vaporwaveSunFireworkRenderer.js'
 import vaporwaveSunRenderer2 from './renderers/vaporwaveSunRenderer2.js'
 
 
@@ -25,6 +24,8 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
+
+requestAnimationFrame(render)
 
 // ----------------------------------------------------------
 // Buttons 
@@ -39,6 +40,21 @@ pauseButton.addEventListener('click', (e) => {
   audio.pause()
 })
 
+// --------------------------------------------------------
+// Select Dropdowns
+const mediaSelect = document.getElementById('music-dropdown')
+const visSelect = document.getElementById('vis-dropdown')
+
+mediaSelect.addEventListener('input', (e) => {
+  audio.pause()
+  audio = null
+  sourceFile = `./music/${e.target.value}`
+  startAudio()
+})
+
+visSelect.addEventListener('input', (e) => {
+  visualizer = e.target.value
+})
 
 // --------------------------------------------------------
 // Audio setup
@@ -47,6 +63,8 @@ pauseButton.addEventListener('click', (e) => {
 let analyser
 let frequencyArray
 let audio
+let visualizer = 'vapor-1'
+let sourceFile = './music/nomad-city.mp3'
 
 // Starts playing the audio
 function startAudio() {
@@ -56,12 +74,7 @@ function startAudio() {
   const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
   // Define a source sound file 
-  // You can replace this with your own file
-  // audio.src = './music/bird-whistling-a.wav'
-  // audio.src = './music/seven-nation.mp3'
-  // audio.src = './music/log-sine-sweep.wav'
-  audio.src = './music/nomad-city.mp3'
-  // audio.src = './music/vis_test.mp3'
+  audio.src = sourceFile
 
   // Make a new analyser
   analyser = audioContext.createAnalyser()
@@ -145,9 +158,20 @@ function render() {
   // circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
   // circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
 
-  vaporwaveSunRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+  switch (visualizer) {
+    case 'vapor-1':
+      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      break;
+    case 'vapor-2':
+      vaporwaveSunRenderer2(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      break;
+    default:
+      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      break;
+  }
 
-  // vaporwaveSunRenderer2(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+
+
 
   // ctx.fillStyle = backgroundColor
   // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -155,4 +179,3 @@ function render() {
   // Set up the next animation frame
   requestAnimationFrame(render)
 }
-
