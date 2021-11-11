@@ -149,15 +149,6 @@ function render() {
   analyser.getByteFrequencyData(frequencyArray)
   rotationFactor += 0.1 / 60
 
-  // Use one of the renderers below 
-  // radialRayRenderer(frequencyArray, ctx, centerX, centerY, radius)
-  // verticalBarsMonoRenderer(frequencyArray, ctx, 12, 300, 300)
-  // verticalBarsRenderer(frequencyArray, ctx, 300, 300)
-  // circleCenterRenderer(frequencyArray, ctx, centerX, centerY)
-  // circleGridRenderer(frequencyArray, ctx, 300, 300)
-  // circleRenderer(frequencyArray, ctx, centerX, centerY, radius)
-  // circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
-
   switch (visualizer) {
     case 'vapor-1':
       vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
@@ -170,12 +161,5 @@ function render() {
       break;
   }
 
-
-
-
-  // ctx.fillStyle = backgroundColor
-  // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-  // Set up the next animation frame
   requestAnimationFrame(render)
 }
