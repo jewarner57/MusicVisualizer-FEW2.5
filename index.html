@@ -20,45 +20,43 @@
       border: 1px solid;
     }
 
+    .control-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      top: 1em;
+      left: 1em;
+    }
+
     button,
     select {
-      position: absolute;
       border-radius: 0.25em;
       border: none;
       background-color: rgb(0, 155, 155);
       color: white;
       outline: none;
+      margin-bottom: 0.75em;
     }
 
-    button:hover,
-    select:hover {
+    button:hover {
       background-color: rgb(160, 34, 97);
     }
 
-    #button-play {
-      top: 20px;
-      left: 10px;
-      padding: 1em 1em 0.7em 1em;
-    }
-
+    #button-play,
     #button-pause {
       padding: 1em 1em 0.7em 1em;
-      top: 80px;
-      left: 10px;
     }
 
-    #music-dropdown {
-      padding: 0.7em 0.7em 0.7em 0.5em;
-      width: 150px;
-      top: 140px;
-      left: 10px;
-    }
-
+    #music-dropdown,
     #vis-dropdown {
       padding: 0.7em 0.7em 0.7em 0.5em;
       width: 150px;
-      top: 180px;
-      left: 10px;
+    }
+
+    label {
+      color: rgb(235, 235, 235);
+      font-family: sans-serif;
     }
   </style>
 </head>
@@ -67,27 +65,33 @@
 
   <canvas id="canvas" width="300" height="300" style="width:100vw; height:100vh;"></canvas>
 
-  <button id="button-play">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
-      <path d="M3 22v-20l18 10-18 10z" />
-    </svg>
-  </button>
-  <button id="button-pause">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
-      <path d="M2 2h20v20h-20z" />
-    </svg>
-  </button>
-  <select name="music-dropdown" id="music-dropdown">
-    <option value="nomad-city.mp3">Nomad City</option>
-    <option value="seven-nation.mp3">Seven Nation Army</option>
-    <option value="vis_test.mp3">Visualization Test</option>
-    <option value="bird-whistling-a.wav">Bird Sounds</option>
-  </select>
+  <div class="control-container">
+    <button id="button-play">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+        <path d="M3 22v-20l18 10-18 10z" />
+      </svg>
+    </button>
+    <button id="button-pause">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+        <path d="M2 2h20v20h-20z" />
+      </svg>
+    </button>
 
-  <select name="vis-dropdown" id="vis-dropdown">
-    <option value="vapor-1">Firework</option>
-    <option value="vapor-2">Frequency Graph</option>
-  </select>
+    <label for="music-dropdown">Media</label>
+    <select name="music-dropdown" id="music-dropdown">
+      <option value="nomad-city.mp3">Nomad City</option>
+      <option value="seven-nation.mp3">Seven Nation Army</option>
+      <option value="vis_test.mp3">Visualization Test</option>
+      <option value="bird-whistling-a.wav">Bird Sounds</option>
+    </select>
+
+
+    <label for="vis-dropdown">Visualizer</label>
+    <select name="vis-dropdown" id="vis-dropdown">
+      <option value="vapor-1">Firework</option>
+      <option value="vapor-2">Frequency Graph</option>
+    </select>
+  </div>
 
   <script src="main.js" type="module"></script>
 </body>
