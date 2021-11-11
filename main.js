@@ -38,6 +38,7 @@ playButton.addEventListener('click', (e) => {
 
 pauseButton.addEventListener('click', (e) => {
   audio.pause()
+  audio = null
 })
 
 // --------------------------------------------------------
@@ -46,14 +47,22 @@ const mediaSelect = document.getElementById('music-dropdown')
 const visSelect = document.getElementById('vis-dropdown')
 
 mediaSelect.addEventListener('input', (e) => {
+  sourceFile = `./music/${e.target.value}`
   audio.pause()
   audio = null
-  sourceFile = `./music/${e.target.value}`
-  startAudio()
 })
 
 visSelect.addEventListener('input', (e) => {
   visualizer = e.target.value
+})
+
+// --------------------------------------------------------
+// Volume Slider
+
+const volumeSlider = document.getElementById('volumeSlider')
+
+volumeSlider.addEventListener('input', (e) => {
+  audio.volume = e.target.value
 })
 
 // --------------------------------------------------------
@@ -65,6 +74,7 @@ let frequencyArray
 let audio
 let visualizer = 'vapor-1'
 let sourceFile = './music/nomad-city.mp3'
+let animationRef
 
 // Starts playing the audio
 function startAudio() {
@@ -88,9 +98,12 @@ function startAudio() {
   // console.log(frequencyArray.length)
 
   // Start playing the audio
+  audio.volume = 0.4
   audio.play()
 
-  requestAnimationFrame(render)
+  if (!animationRef) {
+    animationRef = requestAnimationFrame(render)
+  }
 }
 
 let SunGap = class {
@@ -146,20 +159,41 @@ function render() {
   ctx.fillStyle = backgroundColor
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+  renderSun(sunGaps)
+
   analyser.getByteFrequencyData(frequencyArray)
   rotationFactor += 0.1 / 60
 
   switch (visualizer) {
     case 'vapor-1':
-      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius)
       break;
     case 'vapor-2':
-      vaporwaveSunRenderer2(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      vaporwaveSunRenderer2(frequencyArray, ctx, centerX, centerY, rotationFactor, radius)
       break;
     default:
-      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+      vaporwaveSunFireworkRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius)
       break;
   }
 
-  requestAnimationFrame(render)
+  animationRef = requestAnimationFrame(render)
+}
+
+function renderSun(sunGaps) {
+  // Draw the circle in the center
+  ctx.beginPath()
+  const grad = ctx.createLinearGradient(centerX, centerY - radius + 20, centerX, centerY + radius);
+  grad.addColorStop(0, 'rgba(245, 194, 91, 1)');
+  grad.addColorStop(1, 'rgba(236, 43, 117, 1)');
+  // grad.addColorStop(0, 'rgba(115, 64, 186, 1)');
+  // grad.addColorStop(1, 'rgba(216, 34, 85, 1)');
+  ctx.fillStyle = grad;
+  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
+  ctx.fill()
+
+  // Draw the sun gaps
+  sunGaps.forEach((gap) => {
+    gap.move(15 / 60)
+    gap.draw()
+  })
 }

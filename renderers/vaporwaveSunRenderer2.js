@@ -1,22 +1,4 @@
-function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps) {
-
-  // Draw the circle in the center
-  ctx.beginPath()
-  const grad = ctx.createLinearGradient(centerX, centerY - radius + 20, centerX, centerY + radius);
-  grad.addColorStop(0, 'rgba(245, 194, 91, 1)');
-  grad.addColorStop(1, 'rgba(236, 43, 117, 1)');
-  // grad.addColorStop(0, 'rgba(115, 64, 186, 1)');
-  // grad.addColorStop(1, 'rgba(216, 34, 85, 1)');
-  ctx.fillStyle = grad;
-  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
-  ctx.fill()
-
-  // Draw the sun gaps
-  sunGaps.forEach((gap) => {
-    gap.move(15 / 60)
-    gap.draw()
-  })
-
+function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius) {
   const compressionFactor = 4
   const freqArr = averageArrayValues(Array.from(frequencyArray), compressionFactor)
   const step = ctx.canvas.width / freqArr.length
