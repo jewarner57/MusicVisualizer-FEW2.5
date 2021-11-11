@@ -13,6 +13,7 @@ import verticalBarsMonoRenderer from './verticalBarsMonoRenderer.js'
 import radialRayRenderer from './radialRayRenderer.js'
 import circleFieldRenderer from './circleFieldRenderer.js'
 import vaporwaveSunRenderer from './vaporwaveSunRenderer.js'
+import vaporwaveSunRenderer2 from './vaporwaveSunRenderer2.js'
 
 
 // --------------------------------------------------------
@@ -56,8 +57,8 @@ function startAudio() {
 
   // Define a source sound file 
   // You can replace this with your own file
-  audio.src = 'bird-whistling-a.wav'
-  // audio.src = 'seven-nation.mp3'
+  // audio.src = 'bird-whistling-a.wav'
+  audio.src = 'seven-nation.mp3'
   // audio.src = 'log-sine-sweep.wav'
   // audio.src = 'nomad-city.mp3'
   // audio.src = 'vis_test.mp3'
@@ -145,6 +146,8 @@ function render() {
   // circleFieldRenderer(frequencyArray, ctx, centerX, centerY)
 
   vaporwaveSunRenderer(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
+
+  // vaporwaveSunRenderer2(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, sunGaps)
 
   // ctx.fillStyle = backgroundColor
   // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);

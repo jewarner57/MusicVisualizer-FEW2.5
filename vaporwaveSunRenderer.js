@@ -55,16 +55,3 @@ function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius, s
 }
 
 export default render
-
-
-// Drawing Arcs between each frequency value
-// void ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-// x = point1x
-// y = point1y
-
-// cp2x = point2x
-// cp2y = point2y
-
-// cp1x = point1x - point2x / 2
-// cp1y = y
-
