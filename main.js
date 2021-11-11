@@ -5,15 +5,15 @@
 
 
 // Import a renderer 
-import circleRenderer from './radialRayMonoRenderer.js'
-import circleGridRenderer from './renderCircleGrid.js'
-import circleCenterRenderer from './renderCircleCenter.js'
-import verticalBarsRenderer from './verticalBarRenderer.js'
-import verticalBarsMonoRenderer from './verticalBarsMonoRenderer.js'
-import radialRayRenderer from './radialRayRenderer.js'
-import circleFieldRenderer from './circleFieldRenderer.js'
-import vaporwaveSunRenderer from './vaporwaveSunRenderer.js'
-import vaporwaveSunRenderer2 from './vaporwaveSunRenderer2.js'
+import circleRenderer from './renderers/radialRayMonoRenderer.js'
+import circleGridRenderer from './renderers/renderCircleGrid.js'
+import circleCenterRenderer from './renderers/renderCircleCenter.js'
+import verticalBarsRenderer from './renderers/verticalBarRenderer.js'
+import verticalBarsMonoRenderer from './renderers/verticalBarsMonoRenderer.js'
+import radialRayRenderer from './renderers/radialRayRenderer.js'
+import circleFieldRenderer from './renderers/circleFieldRenderer.js'
+import vaporwaveSunRenderer from './renderers/vaporwaveSunRenderer.js'
+import vaporwaveSunRenderer2 from './renderers/vaporwaveSunRenderer2.js'
 
 
 // --------------------------------------------------------
@@ -57,11 +57,11 @@ function startAudio() {
 
   // Define a source sound file 
   // You can replace this with your own file
-  // audio.src = 'bird-whistling-a.wav'
-  audio.src = 'seven-nation.mp3'
-  // audio.src = 'log-sine-sweep.wav'
-  // audio.src = 'nomad-city.mp3'
-  // audio.src = 'vis_test.mp3'
+  // audio.src = './music/bird-whistling-a.wav'
+  // audio.src = './music/seven-nation.mp3'
+  // audio.src = './music/log-sine-sweep.wav'
+  audio.src = './music/nomad-city.mp3'
+  // audio.src = './music/vis_test.mp3'
 
   // Make a new analyser
   analyser = audioContext.createAnalyser()
