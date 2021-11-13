@@ -31,6 +31,8 @@ requestAnimationFrame(render)
 // Buttons 
 const playButton = document.getElementById('button-play')
 const pauseButton = document.getElementById('button-pause')
+const buttonToggleShow = document.getElementById('button-toggle-show')
+let controlsVisible = true
 
 playButton.addEventListener('click', (e) => {
   playSound()
@@ -38,6 +40,19 @@ playButton.addEventListener('click', (e) => {
 
 pauseButton.addEventListener('click', (e) => {
   stopSound()
+})
+
+buttonToggleShow.addEventListener('click', (e) => {
+  playClick()
+  const controls = document.getElementById('hideable-control-wrapper')
+
+  if (controlsVisible) {
+    controls.style.display = 'none'
+    controlsVisible = false
+    return
+  }
+  controls.style.display = 'flex'
+  controlsVisible = true
 })
 
 // --------------------------------------------------------
