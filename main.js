@@ -33,7 +33,9 @@ const playButton = document.getElementById('button-play')
 const pauseButton = document.getElementById('button-pause')
 
 playButton.addEventListener('click', (e) => {
-  startAudio()
+  if (!audio) {
+    startAudio()
+  }
 })
 
 pauseButton.addEventListener('click', (e) => {

@@ -6,7 +6,7 @@ function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius) {
   const peakHeight = height / 2
 
   const pointList = freqArr.map((f, i) => {
-    const mappedWaveHeight = ((f * 1.3) - 0) / (255 - 0) * (centerY - centerY * 2) + centerY * 2
+    const mappedWaveHeight = ((f * 1) - 0) / (255 - 0) * (centerY - centerY * 2) + centerY * 2
 
     return { x: step * i, y: mappedWaveHeight - 5 }
   })
@@ -32,8 +32,10 @@ function drawCurveThrough(ctx, points, height) {
 
     ctx.quadraticCurveTo(cpX1, point.y, xMid, yMid);
     ctx.quadraticCurveTo(cpX2, point.y, point.x, point.y);
-
   }
+
+  ctx.lineTo(ctx.canvas.width, height);
+
   ctx.fill();
 }
 
