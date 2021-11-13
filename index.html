@@ -37,16 +37,23 @@
       background-color: rgb(0, 155, 155);
       color: white;
       outline: none;
-      margin-bottom: 0.75em;
     }
 
-    button:hover {
-      background-color: rgb(160, 34, 97);
+    button,
+    select,
+    input {
+      margin-bottom: 2em;
     }
 
     #button-play,
     #button-pause {
       padding: 1em 1em 0.7em 1em;
+      margin-right: 1.5em;
+      margin-bottom: 1.5em
+    }
+
+    #button-pause {
+      background-color: rgb(160, 34, 97);
     }
 
     #music-dropdown,
@@ -63,7 +70,7 @@
     #volumeSlider {
       -webkit-appearance: none;
       appearance: none;
-      width: 100%;
+      width: 150px;
       height: 25px;
       background: #646464;
       outline: none;
@@ -90,6 +97,31 @@
       cursor: pointer;
       border-radius: 15px;
     }
+
+    #upload::before {
+      content: attr(data-before);
+      display: inline-block;
+      width: 140px;
+      background: rgb(0, 155, 155);
+      border: 1px solid #999;
+      color: white;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      white-space: nowrap;
+      -webkit-user-select: none;
+      padding: 0.7em 0 0.7em 10px;
+      cursor: pointer;
+      margin-bottom: 0.75em;
+    }
+
+    #upload::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    .play-container {
+      display: flex;
+    }
   </style>
 </head>
 
@@ -98,18 +130,20 @@
   <canvas id="canvas" width="" height=""></canvas>
 
   <div class="control-container">
-    <button id="button-play">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
-        <path d="M3 22v-20l18 10-18 10z" />
-      </svg>
-    </button>
-    <button id="button-pause">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
-        <path d="M2 2h20v20h-20z" />
-      </svg>
-    </button>
+    <div class="play-container">
+      <button id="button-play">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+          <path d="M3 22v-20l18 10-18 10z" />
+        </svg>
+      </button>
+      <button id="button-pause">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" viewBox="0 0 24 24">
+          <path d="M2 2h20v20h-20z" />
+        </svg>
+      </button>
+    </div>
 
-    <label for="music-dropdown">Media</label>
+    <label for="music-dropdown">Test Media</label>
     <select name="music-dropdown" id="music-dropdown">
       <option value="nomad-city.mp3">Nomad City - Phaserland</option>
       <option value="socially-distanced.mp3">Socially Distanced - Highway Superstar</option>
@@ -117,6 +151,9 @@
       <option value="vis_test.mp3">Visualization Test</option>
       <option value="bird-whistling-a.wav">Bird Sounds</option>
     </select>
+
+    <label for="music-dropdown">Custom Media</label>
+    <input type="file" name="upload" id="upload">
 
 
     <label for="vis-dropdown">Visualizer</label>

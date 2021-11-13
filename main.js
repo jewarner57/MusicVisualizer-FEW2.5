@@ -33,14 +33,11 @@ const playButton = document.getElementById('button-play')
 const pauseButton = document.getElementById('button-pause')
 
 playButton.addEventListener('click', (e) => {
-  if (!audio) {
-    startAudio()
-  }
+  playSound()
 })
 
 pauseButton.addEventListener('click', (e) => {
-  audio.pause()
-  audio = null
+  stopSound()
 })
 
 // --------------------------------------------------------
@@ -50,8 +47,8 @@ const visSelect = document.getElementById('vis-dropdown')
 
 mediaSelect.addEventListener('input', (e) => {
   sourceFile = `./music/${e.target.value}`
-  audio.pause()
-  audio = null
+  upload.setAttribute('data-before', 'Upload Custom Song');
+  stopSound()
 })
 
 visSelect.addEventListener('input', (e) => {
@@ -67,8 +64,50 @@ volumeSlider.addEventListener('input', (e) => {
   audio.volume = e.target.value
 })
 
+
+// --------------------------------------------------------
+// Song Upload
+const upload = document.getElementById("upload")
+upload.addEventListener("change", handleFiles, false);
+upload.setAttribute('data-before', 'Upload Custom Song');
+
+function handleFiles(e) {
+  const files = e.target.files
+  sourceFile = URL.createObjectURL(files[0])
+  e.target.setAttribute('data-before', files[0].name);
+  mediaSelect.value = "Custom"
+
+  stopSound()
+}
+
 // --------------------------------------------------------
 // Audio setup
+
+function stopSound() {
+  audio.pause()
+  audio = null
+
+  playButton.style.backgroundColor = "rgb(0, 155, 155)"
+  pauseButton.style.backgroundColor = 'rgb(160, 34, 97)'
+
+  playClick()
+}
+
+function playSound() {
+  playClick()
+
+  if (!audio) {
+    startAudio()
+  }
+
+  pauseButton.style.backgroundColor = "rgb(0, 155, 155)"
+  playButton.style.backgroundColor = 'rgb(160, 34, 97)'
+}
+
+function playClick() {
+  var audio = new Audio("./music/click.wav");
+  audio.play();
+}
 
 // Defime some variables 
 let analyser
