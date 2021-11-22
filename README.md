@@ -6,7 +6,7 @@ Real Time data: Audio Visualizer.
 * * *
 
 ### Live Demo
-[Live project link](https://www.jonathanewarner.com/MusicVisualizer-FEW2.5/)
+[Live project link](https://www.jonathanewarner.com/OutrunMusicVisualizer/)
 
 ![page preivew](./images/preview.png)
 ![page preivew](./images/preview1.png)
