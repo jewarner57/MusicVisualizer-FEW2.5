@@ -27,6 +27,128 @@ ctx.canvas.height = window.innerHeight;
 
 requestAnimationFrame(render)
 
+// ----------------------------------------------------------
+// Buttons 
+const playButton = document.getElementById('play-button')
+const buttonToggleShow = document.querySelector('.button-toggle-hide-controls')
+let controlsVisible = true
+let paused = true
+
+playButton.addEventListener('click', () => {
+  if(paused) {
+    playSound()
+    paused = false
+    return
+  }
+  pauseSound()
+  paused = true
+})
+
+buttonToggleShow.addEventListener('click', (e) => {
+  
+})
+
+// --------------------------------------------------------
+// Select Dropdowns
+// const mediaSelect = document.getElementById('music-dropdown')
+// const visSelect = document.getElementById('vis-dropdown')
+
+// mediaSelect.addEventListener('input', (e) => {
+//   sourceFile = `./music/${e.target.value}`
+//   upload.setAttribute('data-before', 'Upload Custom Song');
+//   stopSound()
+// })
+
+// visSelect.addEventListener('input', (e) => {
+//   visualizer = e.target.value
+// })
+
+// --------------------------------------------------------
+// Volume Slider
+
+const volumeSlider = document.getElementById('volumeSlider')
+
+volumeSlider.addEventListener('input', (e) => {
+  audio.volume = e.target.value
+})
+
+// --------------------------------------------------------
+// Song Upload
+const upload = document.getElementById("upload")
+upload.addEventListener("change", handleFiles, false);
+upload.setAttribute('data-before', 'Upload Custom Song');
+
+function handleFiles(e) {
+  const files = e.target.files
+  sourceFile = URL.createObjectURL(files[0])
+  e.target.setAttribute('data-before', files[0].name);
+  mediaSelect.value = "Custom"
+}
+
+// --------------------------------------------------------
+// Audio setup
+
+function pauseSound() {
+  audio.pause()
+  
+  playButton.innerHTML = `
+  <svg width='29' height='32' viewBox='0 0 29 32' fill='white' xmlns='http://www.w3.org/2000/svg'>
+    <path d='M0 31.6667V0L28.5 15.8333L0 31.6667Z' />
+  </svg>`
+}
+
+function playSound() {
+  if (!audio) {
+    startAudio()
+  }
+  else {
+    audio.play()
+  }
+
+  playButton.innerHTML = `
+  <svg width="28" height="31" viewBox="0 0 28 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.6 32H0V0H11.6V32ZM29 0H17.4V32H29V0Z" fill="white"/>
+  </svg>`
+}
+
+// Defime some variables 
+let analyser
+let frequencyArray
+let audio
+let visualizer = 'vapor-1'
+let sourceFile = './music/nomad-city.mp3'
+let animationRef
+
+// Starts playing the audio
+function startAudio() {
+  // make a new Audio Object
+  audio = new Audio()
+  // Get a context 
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
+  // Define a source sound file 
+  audio.src = sourceFile
+
+  // Make a new analyser
+  analyser = audioContext.createAnalyser()
+  // Connect the analyser and the audio
+  const source = audioContext.createMediaElementSource(audio)
+  source.connect(analyser)
+  analyser.connect(audioContext.destination)
+
+  // Get an array of audio data from the analyser
+  frequencyArray = new Uint8Array(analyser.frequencyBinCount)
+  // console.log(frequencyArray.length)
+
+  // Start playing the audio
+  audio.volume = 0.4
+  audio.play()
+
+  if (!animationRef) {
+    animationRef = requestAnimationFrame(render)
+  }
+}
+
 let SunGap = class {
   constructor(x, y, width, startY, maxY, color) {
     this.height = (this.y - this.maxY) / 20
