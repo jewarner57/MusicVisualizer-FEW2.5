@@ -31,6 +31,8 @@ requestAnimationFrame(render)
 // Buttons 
 const playButton = document.getElementById('play-button')
 const buttonToggleShow = document.querySelector('.button-toggle-hide-controls')
+const buttonNextSong = document.querySelector('.skip-forward-button')
+const buttonPrevSong = document.querySelector('.skip-backward-button')
 let controlsVisible = true
 let paused = true
 
@@ -48,20 +50,30 @@ buttonToggleShow.addEventListener('click', (e) => {
   
 })
 
+buttonNextSong.addEventListener('click', () => {
+  nextSong()
+})
+
+buttonPrevSong.addEventListener('click', () => {
+  previousSong()
+})
+
 // --------------------------------------------------------
-// Select Dropdowns
-// const mediaSelect = document.getElementById('music-dropdown')
-// const visSelect = document.getElementById('vis-dropdown')
+// Select Visualizer
+const firework = document.querySelector('.firework-vis-button')
+const freqVis = document.querySelector('.freq-vis-button')
 
-// mediaSelect.addEventListener('input', (e) => {
-//   sourceFile = `./music/${e.target.value}`
-//   upload.setAttribute('data-before', 'Upload Custom Song');
-//   stopSound()
-// })
+firework.addEventListener('click', () => {
+  firework.classList.add('vis-selected')
+  freqVis.classList.remove('vis-selected')
+  visualizer = 'vapor-1'
+})
 
-// visSelect.addEventListener('input', (e) => {
-//   visualizer = e.target.value
-// })
+freqVis.addEventListener('click', () => {
+  firework.classList.remove('vis-selected')
+  freqVis.classList.add('vis-selected')
+  visualizer = 'vapor-2'
+})
 
 // --------------------------------------------------------
 // Volume Slider
@@ -89,7 +101,9 @@ function handleFiles(e) {
 // Audio setup
 
 function pauseSound() {
-  audio.pause()
+  if(audio) {
+    audio.pause()
+  }
   
   playButton.innerHTML = `
   <svg width='29' height='32' viewBox='0 0 29 32' fill='white' xmlns='http://www.w3.org/2000/svg'>
@@ -111,13 +125,43 @@ function playSound() {
   </svg>`
 }
 
-// Defime some variables 
+function nextSong() {
+  musicPlaylist.push(currentlyPlaying)
+  currentlyPlaying = musicPlaylist.shift()
+  
+  loadNewSong()
+}
+
+function previousSong() {
+  const temp = currentlyPlaying
+  currentlyPlaying = musicPlaylist.pop()
+  musicPlaylist.unshift(temp)
+
+  loadNewSong()
+}
+
+function loadNewSong() {
+  paused = false
+  if (audio) {
+    audio.pause()
+  }
+  audio = null
+  playSound()
+}
+
+// Define variables 
 let analyser
 let frequencyArray
 let audio
 let visualizer = 'vapor-1'
 let sourceFile = './music/nomad-city.mp3'
 let animationRef
+
+let currentlyPlaying = { name: "Nomad City - Phaserland", source: "./music/nomad-city.mp3" }
+const musicPlaylist = [
+  { name: "Socially Distanced - Highway Superstar", source: "./music/socially-distanced.mp3" },
+  { name: "Seven Nation Army - The White Stripes", source: "./music/seven-nation.mp3"},
+]
 
 // Starts playing the audio
 function startAudio() {
@@ -127,8 +171,9 @@ function startAudio() {
   const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
   // Define a source sound file 
-  audio.src = sourceFile
-
+  audio.src = currentlyPlaying.source 
+  console.log(currentlyPlaying)
+  
   // Make a new analyser
   analyser = audioContext.createAnalyser()
   // Connect the analyser and the audio
