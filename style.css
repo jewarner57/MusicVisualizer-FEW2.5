@@ -80,9 +80,9 @@ body {
   position: relative;
 }
 
-.audio-progress::before {
+.audio-progress-bar {
   content: "";
-  width: 100px;
+  width: 0px;
   height: 4.5px;
   background-color: #E2E2E2;
   position: absolute;
@@ -114,7 +114,15 @@ body {
   overflow-y: scroll;
 }
 
+.playlist-song {
+  background-color: #424242;
+  padding: 10px;
+  text-align: center;
+  margin: 5px 0;
+}
+
 #upload::before {
+  margin: 5px 0;
   content: attr(data-before);
   text-align: center;
   background-color: #424242;

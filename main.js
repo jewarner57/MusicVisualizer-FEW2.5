@@ -141,6 +141,7 @@ function previousSong() {
 }
 
 function loadNewSong() {
+  updatePlaylist()
   paused = false
   if (audio) {
     audio.pause()
@@ -149,12 +150,40 @@ function loadNewSong() {
   playSound()
 }
 
+function updateAudioProgressBar() {
+  const bar = document.querySelector(".audio-progress-bar")
+  const progress = (audio.currentTime / audio.duration) * 100
+  bar.style.width = `${progress}%`
+
+  if(progress >= 100) {
+    nextSong()
+  }
+}
+
+function updatePlaylist() {
+  const playlistElem = document.querySelector('.playlist-container')
+
+  for (let child of playlistElem.childNodes) {
+    if (child.nodeName === 'DIV') {
+      playlistElem.removeChild(child)
+    }
+  }
+
+  console.log(musicPlaylist)
+  for (let song of musicPlaylist) {
+    let songElem = document.createElement("div")
+    songElem.classList.add("playlist-song")
+    songElem.innerHTML = song.name
+    playlistElem.appendChild(songElem)
+  }
+
+}
+
 // Define variables 
 let analyser
 let frequencyArray
 let audio
 let visualizer = 'vapor-1'
-let sourceFile = './music/nomad-city.mp3'
 let animationRef
 
 let currentlyPlaying = { name: "Nomad City - Phaserland", source: "./music/nomad-city.mp3" }
@@ -171,9 +200,8 @@ function startAudio() {
   const audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
   // Define a source sound file 
-  audio.src = currentlyPlaying.source 
-  console.log(currentlyPlaying)
-  
+  audio.src = currentlyPlaying.source
+
   // Make a new analyser
   analyser = audioContext.createAnalyser()
   // Connect the analyser and the audio
@@ -183,7 +211,6 @@ function startAudio() {
 
   // Get an array of audio data from the analyser
   frequencyArray = new Uint8Array(analyser.frequencyBinCount)
-  // console.log(frequencyArray.length)
 
   // Start playing the audio
   audio.volume = 0.4
@@ -265,6 +292,9 @@ function render() {
   }
 
   animationRef = requestAnimationFrame(render)
+  if (audio) {
+    updateAudioProgressBar()
+  }
 }
 
 function renderSun(sunGaps) {
