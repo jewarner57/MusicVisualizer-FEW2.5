@@ -1,7 +1,7 @@
 function render(frequencyArray, ctx, centerX, centerY, rotationFactor, radius) {
   const compressionFactor = 2
   let freqArr = averageArrayValues(Array.from(frequencyArray), compressionFactor)
-  freqArr = freqArr.slice(10, freqArr.length / 2)
+  freqArr = freqArr.slice(1, freqArr.length / 3)
   const step = (ctx.canvas.width / freqArr.length) / 2
   const height = centerY * 2 - 5
   const peakHeight = height / 2
