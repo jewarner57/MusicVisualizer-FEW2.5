@@ -88,13 +88,15 @@ volumeSlider.addEventListener('input', (e) => {
 // Song Upload
 const upload = document.getElementById("upload")
 upload.addEventListener("change", handleFiles, false);
-upload.setAttribute('data-before', 'Upload Custom Song');
 
 function handleFiles(e) {
   const files = e.target.files
-  sourceFile = URL.createObjectURL(files[0])
-  e.target.setAttribute('data-before', files[0].name);
-  mediaSelect.value = "Custom"
+  const sourceFile = URL.createObjectURL(files[0])
+  musicPlaylist.push({
+    name: files[0].name, 
+    source: sourceFile
+  })
+  updatePlaylist()
 }
 
 // --------------------------------------------------------
@@ -161,22 +163,26 @@ function updateAudioProgressBar() {
 }
 
 function updatePlaylist() {
+  const currSong = document.querySelector('.now-playing > p')
+  currSong.innerHTML = currentlyPlaying.name
+
   const playlistElem = document.querySelector('.playlist-container')
 
-  for (let child of playlistElem.childNodes) {
-    if (child.nodeName === 'DIV') {
-      playlistElem.removeChild(child)
-    }
+  // remove all songs
+  const songs = document.querySelectorAll('.playlist-song')
+  for(let song of songs) {
+    song.remove()
   }
 
-  console.log(musicPlaylist)
+  // add back in new order
   for (let song of musicPlaylist) {
     let songElem = document.createElement("div")
+
     songElem.classList.add("playlist-song")
     songElem.innerHTML = song.name
-    playlistElem.appendChild(songElem)
-  }
 
+    playlistElem.prepend(songElem)
+  }
 }
 
 // Define variables 
@@ -191,6 +197,8 @@ const musicPlaylist = [
   { name: "Socially Distanced - Highway Superstar", source: "./music/socially-distanced.mp3" },
   { name: "Seven Nation Army - The White Stripes", source: "./music/seven-nation.mp3"},
 ]
+
+updatePlaylist()
 
 // Starts playing the audio
 function startAudio() {

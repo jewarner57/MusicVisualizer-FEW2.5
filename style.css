@@ -30,7 +30,7 @@ body {
   border-radius: 17px;
   padding: 5px 20px 20px 20px;
   background-color: #0f0f0f;
-  max-height: 500px;
+  max-height: 600px;
   max-width: 600px;
   min-width: 300px;
 }
@@ -110,18 +110,22 @@ body {
 .playlist-container {
   display: flex;
   flex-direction: column;
-  min-height: 200px;
   overflow-y: scroll;
+  min-height:200px;
+  max-height: 100px;
 }
 
 .playlist-song {
   background-color: #424242;
+  color: #dbdbdb;
   padding: 10px;
   text-align: center;
   margin: 5px 0;
+  border-radius: 5px;
 }
 
 #upload::before {
+  font-size: 16px;
   margin: 5px 0;
   content: attr(data-before);
   text-align: center;
