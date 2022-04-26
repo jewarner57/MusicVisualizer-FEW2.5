@@ -1,7 +1,7 @@
 # FEW 2.5 Assignment 3 - Real time visualization
 Real Time data: Audio Visualizer. 
 
-## A vaporwave / synthwave themed audio visualization
+## An outrun / synthwave themed audio visualizer.
 
 * * *
 
