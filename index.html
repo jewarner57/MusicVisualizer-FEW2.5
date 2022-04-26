@@ -22,56 +22,59 @@
         </svg>
       </div>
     </div>
-    <!-- Visualization Toggle -->
-    <div class="vis-toggle-container">
-      <div class="firework-vis-button vis-selected">Firework</div>
-      <div class="freq-vis-button">Miami Wave</div>
-    </div>
-    <!-- Now Playing Section -->
-    <div class="now-playing-container">
-      <div class="now-playing">
-        <p>Nomad City - Phaserland</p>
-        <div class="audio-progress">
-          <div class="audio-progress-bar"></div>
+    <div class="music-control-body">
+      <!-- Visualization Toggle -->
+      <div class="vis-toggle-container">
+        <div class="firework-vis-button vis-selected">Firework</div>
+        <div class="freq-vis-button">Miami Wave</div>
+      </div>
+      <!-- Now Playing Section -->
+      <div class="now-playing-container">
+        <div class="now-playing">
+          <p>Nomad City - Phaserland</p>
+          <div class="audio-progress">
+            <div class="audio-progress-bar"></div>
+          </div>
+        </div>
+        <!-- Music Controls -->
+        <div class="music-controls">
+          <div class="skip-forward-button">
+            <svg width="19" height="21" viewBox="0 0 19 21" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.45455 10.5L19 21V0L3.45455 10.5ZM-2.38419e-07 0.875H3.45455V20.125H-2.38419e-07V0.875Z" fill="white" />
+            </svg>
+          </div>
+          <div class="play-button" id="play-button">
+            <svg width="29" height="32" viewBox="0 0 29 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 31.6667V0L28.5 15.8333L0 31.6667Z" fill="white" />
+            </svg>
+          </div>
+          <div class="skip-backward-button">
+            <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5455 10.5L0 21V0L15.5455 10.5ZM19 0.875H15.5455V20.125H19V0.875Z" fill="white" />
+            </svg>
+          </div>
         </div>
       </div>
-      <!-- Music Controls -->
-      <div class="music-controls">
-        <div class="skip-forward-button">
-          <svg width="19" height="21" viewBox="0 0 19 21" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.45455 10.5L19 21V0L3.45455 10.5ZM-2.38419e-07 0.875H3.45455V20.125H-2.38419e-07V0.875Z" fill="white" />
-          </svg>
-        </div>
-        <div class="play-button" id="play-button">
-          <svg width="29" height="32" viewBox="0 0 29 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 31.6667V0L28.5 15.8333L0 31.6667Z" fill="white" />
-          </svg>
-        </div>
-        <div class="skip-backward-button">
-          <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.5455 10.5L0 21V0L15.5455 10.5ZM19 0.875H15.5455V20.125H19V0.875Z" fill="white" />
-          </svg>
-        </div>
-      </div>
-    </div>
-      <!-- Next Up Section -->
-      <div class="next-up-container">
-        <p>Next Up:</p>
-        <div class="playlist-container">
+        <!-- Next Up Section -->
+        <div class="next-up-container">
+          <p>Next Up:</p>
+          <div class="playlist-container">
+            
+          </div>
           <input type="file" name="upload" id="upload" data-before="Upload Custom Song">
         </div>
-      </div>
 
-      <!-- Volume Section -->
-      <div class="volume-container">
-        <div>
-          <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M6 5L14 0V20L6 15V5ZM0 15H4V5H0V15ZM20.264 1.736L18.767 3.233C20.614 5.016 21.75 7.39 21.75 10C21.75 12.61 20.615 14.984 18.767 16.766L20.265 18.264C22.57 16.111 24 13.209 24 10C24 6.791 22.57 3.89 20.264 1.736ZM19.775 10C19.775 7.916 18.86 6.033 17.391 4.609L15.888 6.112C16.899 7.161 17.525 8.513 17.525 10C17.525 11.488 16.902 12.841 15.891 13.891L17.394 15.394C18.862 13.97 19.775 12.085 19.775 10V10Z"
-              fill="#646464" />
-          </svg>
+        <!-- Volume Section -->
+        <div class="volume-container">
+          <div>
+            <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6 5L14 0V20L6 15V5ZM0 15H4V5H0V15ZM20.264 1.736L18.767 3.233C20.614 5.016 21.75 7.39 21.75 10C21.75 12.61 20.615 14.984 18.767 16.766L20.265 18.264C22.57 16.111 24 13.209 24 10C24 6.791 22.57 3.89 20.264 1.736ZM19.775 10C19.775 7.916 18.86 6.033 17.391 4.609L15.888 6.112C16.899 7.161 17.525 8.513 17.525 10C17.525 11.488 16.902 12.841 15.891 13.891L17.394 15.394C18.862 13.97 19.775 12.085 19.775 10V10Z"
+                fill="#646464" />
+            </svg>
+          </div>
+          <input type="range" min="0" max="1" value="0.4" step="0.01" id="volumeSlider">
         </div>
-        <input type="range" min="0" max="1" value="0.4" step="0.01" id="volumeSlider">
       </div>
   </div>
 

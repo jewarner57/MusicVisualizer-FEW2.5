@@ -20,19 +20,27 @@ body {
   border: 1px solid;
 }
 
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
 /* Music Controls */
 .music-control-container {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 10px;
+  top: 15px;
   left: 10px;
   border-radius: 17px;
   padding: 5px 20px 20px 20px;
   background-color: #0f0f0f;
   max-height: 600px;
   max-width: 600px;
-  min-width: 300px;
+}
+
+.music-control-hidden {
+  padding: 10px 10px 8px 10px;
 }
 
 .title-bar {
@@ -41,6 +49,10 @@ body {
   align-items: center;
   color: white;
   width: 100%;
+}
+
+.button-toggle-hide-controls {
+  cursor: pointer;
 }
 
 .vis-toggle-container {
@@ -55,6 +67,7 @@ body {
   padding: 15px 10px;
   width: 50%;
   text-align: center;
+  cursor: pointer;
 }
 
 .vis-selected {
@@ -107,6 +120,10 @@ body {
   align-items: center;
 }
 
+.music-controls > div {
+  cursor: pointer;
+}
+
 .playlist-container {
   display: flex;
   flex-direction: column;
@@ -116,12 +133,24 @@ body {
 }
 
 .playlist-song {
+  transition: opacity 0.2s ease-out;
   background-color: #424242;
   color: #dbdbdb;
   padding: 10px;
   text-align: center;
   margin: 5px 0;
   border-radius: 5px;
+  opacity: 100;
+  cursor: pointer
+}
+
+.playlist-song:hover {
+  opacity: 0.5;
+}
+
+#upload {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 #upload::before {
@@ -130,6 +159,7 @@ body {
   content: attr(data-before);
   text-align: center;
   background-color: #424242;
+  color: #dbdbdb;
   display: inline-block;
   padding: 10px 0;
   min-width: 100%;
@@ -155,7 +185,7 @@ body {
 #volumeSlider {
   -webkit-appearance: none;
   appearance: none;
-  width: 80%;
+  width: 90%;
   height: 10px;
   background: #646464;
   outline: none;
