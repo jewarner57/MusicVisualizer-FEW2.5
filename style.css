@@ -16,13 +16,24 @@ body {
   flex-direction: column;
 }
 
-#canvas {
-  border: 1px solid;
-}
-
 .hidden {
   visibility: hidden;
   display: none;
+}
+
+.github-link {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+}
+
+.github-link > a > svg {
+  transition: all 0.2s ease-out;
+  color: #003d3d;
+}
+
+.github-link > a > svg:hover {
+  color: #009b9b;
 }
 
 /* Music Controls */
